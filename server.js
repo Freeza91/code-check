@@ -20,6 +20,12 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 // app.use(favicon(__dirname + '/public/images/favicon.ico'));
 
+app.use(function(req, res, next) {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Content-Type", "text/html");
+  return next();
+});
+
 var routes = require('./config/routes');
 routes(app);
 
