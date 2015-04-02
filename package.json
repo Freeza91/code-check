@@ -3,10 +3,12 @@
   "version": "0.0.0",
   "description": "An example Node Js package.json",
   "author": "rudy",
-  "contributors": [{
-    "name": "rudy",
-    "email": "rudy@example.com"
-  }],
+  "contributors": [
+    {
+      "name": "rudy",
+      "email": "rudy@example.com"
+    }
+  ],
   "bin": {},
   "scripts": {
     "start": "node server.js"
@@ -30,6 +32,7 @@
     "debug": "~2.1.1",
     "express": "~4.12.2",
     "jade": "~1.9.2",
+    "mongoose": "^4.0.1",
     "morgan": "~1.5.1",
     "serve-favicon": "~2.2.0"
   },
