@@ -6,9 +6,20 @@ var Schema = db.Schema;
 var mongoose = db.mongoose;
 
 var UserSchema = new Schema({
-  username: String,
+  username: String
 });
 var UserModel = mongoose.model("User", UserSchema);
+
+// 静态方法
+UserSchema.statics.findSomething = function(cb){
+
+}
+
+// 实例方法
+UserSchema.methods.findOtherSomething = function(cb){
+
+}
+
 
 module.exports = {
   'model' : UserModel
