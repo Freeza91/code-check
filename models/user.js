@@ -6,8 +6,12 @@ var Schema = db.Schema;
 var mongoose = db.mongoose;
 
 var UserSchema = new Schema({
-  username: String
+  username: String,
+  password: String,
+  email: String,
+  apiKey: String
 });
+
 var UserModel = mongoose.model("User", UserSchema);
 
 // 静态方法

@@ -1,8 +1,14 @@
 var userModel = require('../models/user');
 
 var index = function(req, res, next){
-  user = new userModel.model( { username: 'rudyboy'});
+  user = new userModel.model({
+    username: 'rudyboy',
+    password: '123456',
+    email: 'hanshuaishuai@geekpark.net',
+    apiKey: '123456789xxx-heheh'
+  });
 
+  user.save();
   res.render('users/index', {
     user: user
   });
