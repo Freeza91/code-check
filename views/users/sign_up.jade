@@ -1,10 +1,19 @@
 extend ../layout
 
 block content
-  form(action="", method="post")
-    div
-      label username &nbsp; &nbsp;
-      input(username="username", type="text")
-    div
-      label password &nbsp; &nbsp;
-      input(password="password", type="password")
+  form(action="/users", method="post")
+    div.input-group
+      label.input-group-addon username &nbsp; &nbsp;
+      input.form-control(name="username", type="text")
+
+    div.input-group
+      label.input-group-addon email &nbsp; &nbsp;
+      input.form-control(name="email", type="text")
+
+    div.input-group
+      label.input-group-addon password &nbsp; &nbsp;
+      input.form-control(name="password", type="password")
+
+    div.input-group
+      button 注册
+

@@ -8,14 +8,19 @@ var code = require('../controllers/code');
 
 module.exports = function(app){
 
-  app.all('*', authen, loadUser);
+  // app.all('*', authen, loadUser);
   // resorces users
   app.get('/users', user.index);
   app.get('/users/sign_up', user.sign_up);
+  app.get('/users/:id', user.show);
+  app.post('/users', user.create);
 
   // resoures activites
   app.get('/activities', activity.index);
+  app.get('/activities/new', activity.new);
+  app.post('/activites/create', activity.create);
   app.get('/activities/:id', activity.show);
+
 
   // resoures codes
   app.get('/codes', code.index);
@@ -23,6 +28,7 @@ module.exports = function(app){
 
   // root
   app.get('/', function(req, res, next){
+    console.log(req.cookies);
     res.render('home');
   });
 
