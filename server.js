@@ -5,6 +5,8 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var session = require('express-session');
+var store = require('connect-mongo')(session);
 
 var app = express();
 
@@ -15,8 +17,17 @@ app.set('view engine', 'jade');
 // uncomment after placing your favicon in /public
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
+
+// app.set('trust proxy', 1); // trust first proxy
+app.use(session({
+  secret: 'can not store',
+  resave: false,
+  saveUninitialized: true,
+  store: new store({ url: 'mongodb://localhost/code-check' })
+}));
+
 app.use(express.static(path.join(__dirname, 'public')));
 // app.use(favicon(__dirname + '/public/images/favicon.ico'));
 
