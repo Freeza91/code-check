@@ -1,0 +1,14 @@
+extend ../layout
+
+block content
+  form(action="/users/auth", method="post")
+    div.input-group
+      label.input-group-addon email &nbsp; &nbsp;
+      input.form-control(name='email', type='email', value="#{user.email}")
+
+    div.input-group
+      label.input-group-addon password &nbsp; &nbsp;
+      input.form-control(name='password', type='password', value="#{user.password}")
+
+    div.input-group
+      button 登陆
