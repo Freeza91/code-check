@@ -1,6 +1,6 @@
-var db = require('../config/schema');
-var Schema = db.Schema;
-var mongoose = db.mongoose;
+var db = require('../config/schema')
+var Schema = db.Schema
+var mongoose = db.mongoose
 
 var CodeSchema = new Schema({
   created_at: Date,
@@ -8,9 +8,9 @@ var CodeSchema = new Schema({
   codeValue: String,
   is_actived: Boolean,
   activityId: Schema.Types.ObjectId
-});
+})
 
-var CodeModel = mongoose.model("Code", CodeSchema);
+var CodeModel = mongoose.model("Code", CodeSchema)
 
 // 静态方法
 CodeSchema.statics.findSomething = function(cb){

@@ -1,6 +1,7 @@
 extend ../layout
 
 block content
+  div= activity._id
   div= activity.name
   div= activity.desc
   div= activity.userId
@@ -9,3 +10,19 @@ block content
 
   div
     a(href='/activities') 返回活动首页
+
+  button#createCode 生成验证码
+  script(type='text/javascript').
+    var url = '/activities/' + '#{activity._id}' + '/codes/new'
+    $('#createCode').click(function(){
+      $.ajax({
+        url: url,
+        contentType: 'application/json',
+        success: function(data){
+          data = JSON.parse(data)
+          alert(data.msg)
+        }
+      })
+    })
+
+

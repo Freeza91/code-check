@@ -27,5 +27,5 @@ module.exports = function(app){
 
   // resoures codes
   app.get('/activities/:id/codes/new', code.create)       //创建活动下得code
-  app.get('/activities/:id/active', code.active)          //激活code
+  app.get('/activities/:id/codes/active', code.active)    //激活code
 }
