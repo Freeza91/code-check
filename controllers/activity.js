@@ -1,38 +1,51 @@
-var activityModel = require('../models/activity');
+var ActivityModel = require('../models/activity')
+var Activity = ActivityModel.model
 
-var index = function(req, res, next){
-  activity = new activityModel.model({
-    name: 'gif',
-    desc: 'test',
-    created_at: new Date(),
-    end_at: new Date()
-  });
-  activity.userId = activity.id;
+exports.index = function(req, res, next){
+  Activity.find({'userId': req.session.user._id},
+   function(err, activities){
+    if(err){
+      return next(err)
+    }else if(activities){
+      res.render('activities', {
+        activities: activities
+      })
+    }
+   })
+}
 
+exports.show = function(req, res, next){
+  Activity.findOne({'_id': req.params.id, 'userId': req.session.user._id},
+     function(err, activity){
+      if(err){
+        return next(err)
+      }else if(activity){
+        res.render('activities/show', {
+          activity: activity
+        })
+      }
+     })
+}
+
+exports.new = function(req, res, next){
+  activity = new Activity({
+    name: '',
+    desc: ''
+  })
+
+  res.render('activities/new', {
+    activity: activity
+  })
+}
+
+exports.create = function(req, res, next){
+  activity = new Activity(req.body)
+  activity.userId = req.session.user._id
   activity.save()
 
-  res.render('activities',
-  {
-    activity: activity
-  });
+  res.redirect('/activities/' + activity._id)
 }
 
-var show = function(req, res, next){
-
+exports.delete = function(req, res, next){
+  res.send('delete test')
 }
-
-var create = function(req, res, next){
-
-}
-
-var update = function(req, res, next){
-
-}
-
-var sign_up = function(req, res, next){
-}
-
-exports.index = index;
-exports.show = show;
-exports.create = create;
-exports.update = update;

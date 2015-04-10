@@ -1,6 +1,6 @@
-var db = require('../config/schema');
-var Schema = db.Schema;
-var mongoose = db.mongoose;
+var db = require('../config/schema')
+var Schema = db.Schema
+var mongoose = db.mongoose
 
 var ActivitySchema = new Schema({
   name: String,
@@ -8,9 +8,9 @@ var ActivitySchema = new Schema({
   userId: Schema.Types.ObjectId,
   created_at: Date,
   end_at: Date
-});
+})
 
-var ActivityModel = mongoose.model("Activity", ActivitySchema);
+var ActivityModel = mongoose.model("Activity", ActivitySchema)
 
 // 静态方法
 ActivitySchema.statics.findSomething = function(cb){

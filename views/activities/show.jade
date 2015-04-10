@@ -1,0 +1,11 @@
+extend ../layout
+
+block content
+  div= activity.name
+  div= activity.desc
+  div= activity.userId
+  div= activity.created_at
+  div zhegesghi #{activity.end_at}
+
+  div
+    a(href='/activities') 返回活动首页

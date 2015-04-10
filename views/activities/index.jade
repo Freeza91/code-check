@@ -1,8 +1,16 @@
 extend ../layout
 
 block content
-  dic= activity.name
-  div= activity.desc
-  div= activity.userId
-  div= activity.created_at
-  div zhegesghi #{activity.end_at}
+  each activity in activities
+    div
+      ul
+        li= activity.name
+        li= activity.desc
+        li= activity.userId
+        li= activity.created_at
+        li zhegesghi #{activity.end_at}
+        li
+          a(href='/activities/' + activity._id) 查看活动
+
+  div
+    a(href='/activities/new') 创建一个活动

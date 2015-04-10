@@ -1,0 +1,22 @@
+extend ../layout
+
+block content
+  form(action='/activities/create', method='post')
+    div.input-group
+      label.input-group 活动名称
+      input.form-control(type="text", name='name', value='#{activity.name}')
+
+    div.input-group
+      label.input-group 活动描述
+      input.form-control(type="text", name='desc', value='#{activity.desc}')
+
+    div.input-group
+      label.input-group 活动开始时间
+      input.form-control(type='date', name='created_at')
+
+    div.input-group
+      label.input-group 活动开始时间
+      input.form-control(type='date', name='end_at')
+
+    div.input-group
+      button 创建活动
