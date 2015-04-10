@@ -1,7 +1,6 @@
 extend ../layout
 
 block content
-  div= activity._id
   div= activity.name
   div= activity.desc
   div= activity.userId
@@ -9,7 +8,23 @@ block content
   div zhegesghi #{activity.end_at}
 
   div
+    each code in codes
+      li ++++++++++++++++
+      li= code.codeValue
+      li= code.created_at
+      if code.is_actived
+        li 已经激活
+        li= code.actived_at
+      else
+        li 未激活 &nbsp;&nbsp;
+          a(href='/activities/' + activity._id + '/codes/active?codeValue=' + code.codeValue) 激活
+        li ---------
+
+  div
     a(href='/activities') 返回活动首页
+  div
+    form(action='/activities/' + activity._id + "?_method=delete", method='post')
+      button 删除活动
 
   button#createCode 生成验证码
   script(type='text/javascript').

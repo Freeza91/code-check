@@ -11,6 +11,9 @@ block content
         li zhegesghi #{activity.end_at}
         li
           a(href='/activities/' + activity._id) 查看活动
+        li
+          form(action='/activities/' + activity._id + "?_method=delete", method='post')
+            button 删除活动
 
   div
     a(href='/activities/new') 创建一个活动

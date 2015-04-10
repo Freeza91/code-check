@@ -1,5 +1,7 @@
 var ActivityModel = require('../models/activity')
 var Activity = ActivityModel.model
+var CodeModel = require('../models/code')
+var Code = CodeModel.model
 
 exports.index = function(req, res, next){
   Activity.find({'userId': req.session.user._id},
@@ -20,9 +22,13 @@ exports.show = function(req, res, next){
       if(err){
         return next(err)
       }else if(activity){
-        res.render('activities/show', {
-          activity: activity
-        })
+        Code.find({activityId: activity._id},
+          function(err, codes){
+            res.render('activities/show', {
+              activity: activity,
+              codes: codes
+            })
+          })
       }
      })
 }
@@ -47,5 +53,15 @@ exports.create = function(req, res, next){
 }
 
 exports.delete = function(req, res, next){
-  res.send('delete test')
+  Activity.findOne({'_id': req.params.id, userId: req.session.user._id},
+    function(err, activity){
+      if(err){
+        return next(err)
+      }else if(activity){
+        activity.remove()
+        res.redirect('/activities')
+      }else{
+        res.redirect('/activities')
+      }
+    })
 }

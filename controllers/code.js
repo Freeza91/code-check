@@ -30,7 +30,7 @@ exports.active = function(req, res, next){
   Activity.findOne({'_id': req.params.id, userId: req.session.user._id},
     function(err, activity){
       if(err){
-        res.send('errr')
+        res.send('err')
         return next(err)
       }else if(activity){
         Code.findOne({codeValue: req.query.codeValue},
