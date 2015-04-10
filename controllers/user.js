@@ -11,17 +11,17 @@ exports.sign_up = function(req, res, next){
   })
   res.render('users/sign_up', {
     user: user
-  });
+  })
 }
 //创建用户
 exports.create = function(req, res, next){
   user = new User(req.body)
-  user.apiKey = key.genApiKey();
+  user.apiKey = key.genApiKey()
 
   user.save()
 
   req.session.user = user
-  // res.redirect('activites');
+  // res.redirect('activites')
   redirect('user/' + user._id)
 }
 
@@ -29,17 +29,17 @@ exports.show = function(req, res, next){
   var params = req.params
   User.findOne({ '_id' : params.id}, function(err, user){
     if(err){
-      return next(err);
+      return next(err)
     }else{
       if(user){
         res.render('users/show', {
           user: user
-        });
+        })
       }else{
         res.send("can't found user in my database")
       }
     }
-  });
+  })
 }
 
 exports.edit = function  (req, res, next) {
@@ -66,6 +66,7 @@ exports.update = function(req, res, next){
         if(err){
           return next(err)
         }else{
+          req.session.user = user
           res.redirect('/users/' + user._id)
         }
       })
