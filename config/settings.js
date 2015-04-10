@@ -3,4 +3,4 @@ module.exports = {
   db: 'code-check',
   host: 'localhost',
   port: 27017
-};
+}

@@ -6,9 +6,7 @@ var key = require('../middlewares/key')
 
 exports.create = function(req, res, next){
 
-  console.log(req.params)
-
-  Activity.findOne({id: req.params.id, userId: req.session.user._id},
+  Activity.findOne({'_id': req.params.id, userId: req.session.user._id},
     function(err, activity){
       if(err){
         return next(err)
@@ -29,8 +27,7 @@ exports.create = function(req, res, next){
 
 exports.active = function(req, res, next){
   var msg = ''
-  console.log(req.params)
-  Activity.findOne({'id': req.params.id, userId: req.session.user._id},
+  Activity.findOne({'_id': req.params.id, userId: req.session.user._id},
     function(err, activity){
       if(err){
         res.send('errr')
