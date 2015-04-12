@@ -20,15 +20,14 @@ exports.create = function(req, res, next){
 
   user.save()
 
-  req.session.user = user
-  // res.redirect('activites')
-  redirect('user/' + user._id)
+  res.redirect('activities')
 }
 
 exports.show = function(req, res, next){
   var params = req.params
-  User.findOne({ '_id' : params.id}, function(err, user){
+  User.findOne({ _id: params.id } , function(err, user){
     if(err){
+      return res.send('mongoose id is valid')
       return next(err)
     }else{
       if(user){
@@ -103,13 +102,11 @@ exports.auth = function  (req, res, next) {
           email: body.email,
           password: body.password
         })
-
         res.render('users/login', {
           user: user,
           msg: '用户名或密码不正确'
         })
       }else{
-        req.session.user = user
         res.redirect('/users/' + user._id )
       }
     }

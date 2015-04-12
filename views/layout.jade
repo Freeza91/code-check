@@ -8,5 +8,18 @@ html(lang="en")
     link(rel='stylesheet', href='/stylesheets/bootstrap-theme.min.css')
 
   body
+    nav.navbar.navbar-default(role="navigation")
+      div.navbar-header
+          button.navbar-toggle(data-toggle="collapse" data-target="#dropdown-menu" type="button")
+             span.icon-bar
+             span.icon-bar
+             span.icon-bar
+
+          a.navbar-brand(href='/') 首页
+       div.collapse.navbar-collapse#dropdown-menu
+          ul.nav.navbar-nav
+             li
+                a(href='/activities') 活动
+             li.divider
     .container
       block content
