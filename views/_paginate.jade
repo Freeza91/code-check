@@ -1,0 +1,30 @@
+//- _paginate.jade
+
+//- This examples makes use of Bootstrap 3.x pagination classes
+-var currentPage = paginate.page
+-var baseUrl = paginate.href().split('?')[0] + "?"
+-var start = currentPage - 2 >= 1 ? currentPage - 2 : 1
+-var end = pageCount
+
+if paginate.hasPreviousPages || paginate.hasNextPages(pageCount)
+  .navigation.well-sm#pagination
+    ul.pagination
+      li(class= currentPage == 1 ? "disabled" : "" )
+        a(href="#{baseUrl}page=1")
+          span «
+      if(start > 1)
+        li
+          span ...
+      -for(var i=start, j=0; j<5 && i<=end; i++, j++)
+        if(j == 5)
+          break
+        li(class= currentPage == i ? "active" : "")
+          a(href="#{baseUrl}page=#{i}")= i
+
+      if(j == 5 && i <= end)
+        li
+          span ...
+      li(class= end == currentPage ? "disabled" : "")
+        a(href="#{baseUrl}page=#{end}")
+          span »
+

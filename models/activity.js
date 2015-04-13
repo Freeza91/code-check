@@ -9,6 +9,7 @@ var ActivitySchema = new Schema({
   created_at: Date,
   end_at: Date
 })
+ActivitySchema.plugin(require('mongoose-paginate'))
 
 var ActivityModel = mongoose.model("Activity", ActivitySchema)
 

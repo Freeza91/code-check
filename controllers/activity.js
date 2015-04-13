@@ -4,19 +4,21 @@ var CodeModel = require('../models/code')
 var Code = CodeModel.model
 
 exports.index = function(req, res, next){
-  Activity.find({'userId': req.session.user._id},
-   function(err, activities){
-    if(err){
-      return next(err)
-    }else if(!activities){
-      res.render('notify/notify', {
-        msg: '不存在'
-      })
-    }else {
-      res.render('activities', {
-        activities: activities
-      })
-    }
+  Activity.paginate({ userId: req.session.user._id },
+                    req.query.page, req.query.limit,
+     function(err, pageCount, activities, itemCount){
+      if(err){
+        return next(err)
+      }else if(!activities){
+        res.render('notify/notify', {
+          msg: '不存在'
+        })
+      }else {
+        res.render('activities', {
+          activities: activities,
+          pageCount:  pageCount,
+        })
+      }
    })
 }
 
@@ -35,11 +37,16 @@ exports.show = function(req, res, next){
           msg: '不存在'
         })
       }else{
-        Code.find({activityId: activity._id},
-          function(err, codes){
+        Code.paginate({activityId: activity._id}, req.query.page, req.query.limit,
+          function(err, pageCount, codes, itemCount){
+            if(err){
+              return next(err)
+            }
             res.render('activities/show', {
               activity: activity,
-              codes: codes
+              codes: codes,
+              pageCount: pageCount,
+              itemCount: itemCount
             })
           })
       }

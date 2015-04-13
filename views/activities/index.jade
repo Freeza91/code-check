@@ -15,5 +15,7 @@ block content
           form(action='/activities/' + activity._id + "?_method=delete", method='post')
             button 删除活动
 
+  include ../_paginate
+
   div
     a(href='/activities/new') 创建一个活动
