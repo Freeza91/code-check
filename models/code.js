@@ -10,6 +10,8 @@ var CodeSchema = new Schema({
   activityId: Schema.Types.ObjectId
 })
 
+CodeSchema.plugin(require('mongoose-paginate'))
+
 var CodeModel = mongoose.model("Code", CodeSchema)
 
 // 静态方法

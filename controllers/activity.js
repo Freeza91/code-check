@@ -16,7 +16,7 @@ exports.index = function(req, res, next){
       }else {
         res.render('activities', {
           activities: activities,
-          pageCount:  pageCount,
+          pageCount:  pageCount
         })
       }
    })
@@ -45,8 +45,7 @@ exports.show = function(req, res, next){
             res.render('activities/show', {
               activity: activity,
               codes: codes,
-              pageCount: pageCount,
-              itemCount: itemCount
+              pageCount: pageCount
             })
           })
       }
