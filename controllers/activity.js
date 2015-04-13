@@ -8,7 +8,11 @@ exports.index = function(req, res, next){
    function(err, activities){
     if(err){
       return next(err)
-    }else if(activities){
+    }else if(!activities){
+      res.render('notify/notify', {
+        msg: '不存在'
+      })
+    }else {
       res.render('activities', {
         activities: activities
       })
@@ -17,11 +21,20 @@ exports.index = function(req, res, next){
 }
 
 exports.show = function(req, res, next){
+  if(req.params.id.length != 24){
+    return res.send('notify/notify', {
+      msg: '不存在'
+    })
+  }
   Activity.findOne({'_id': req.params.id, 'userId': req.session.user._id},
      function(err, activity){
       if(err){
         return next(err)
-      }else if(activity){
+      }else if(!activity){
+        res.render('notify/notify', {
+          msg: '不存在'
+        })
+      }else{
         Code.find({activityId: activity._id},
           function(err, codes){
             res.render('activities/show', {
@@ -57,10 +70,10 @@ exports.delete = function(req, res, next){
     function(err, activity){
       if(err){
         return next(err)
-      }else if(activity){
-        activity.remove()
+      }else if(!activity){
         res.redirect('/activities')
       }else{
+        activity.remove()
         res.redirect('/activities')
       }
     })

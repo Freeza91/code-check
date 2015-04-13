@@ -24,18 +24,23 @@ exports.create = function(req, res, next){
 }
 
 exports.show = function(req, res, next){
-  var params = req.params
-  User.findOne({ _id: params.id } , function(err, user){
+  var id = req.params.id
+  if(id.length != 24){
+    return res.render('notify/notify', {
+      msg: '不存在'
+    })
+  }
+  User.findOne( { _id: id } , function(err, user){
     if(err){
-      return res.send('mongoose id is valid')
+      // return res.send('mongoose id is valid')
       return next(err)
     }else{
-      if(user){
+      if(!user){
+        res.send("can't found user in my database")
+      }else{
         res.render('users/show', {
           user: user
         })
-      }else{
-        res.send("can't found user in my database")
       }
     }
   })
@@ -43,19 +48,21 @@ exports.show = function(req, res, next){
 
 exports.edit = function  (req, res, next) {
   user = req.session.user
-  if(user){
+  if(!user){
+    res.send("you haven't logined yet!")
+  }else{
     res.render('users/edit', {
       user: user
     })
-  }else{
-    res.send("you haven't logined yet!")
   }
 }
 
 exports.update = function(req, res, next){
   var user = req.session.user
   User.findOne({'_id': user._id}, function(err, user){
-    if(user){
+    if(!user){
+      res.send('can not find this user')
+    }else{
       var body = req.body
       user.username = body.username
       user.email = body.email
@@ -69,8 +76,6 @@ exports.update = function(req, res, next){
           res.redirect('/users/' + user._id)
         }
       })
-    }else{
-      res.send('can not find this user')
     }
   })
 }
@@ -93,7 +98,7 @@ exports.login = function (req, res, next) {
 exports.auth = function  (req, res, next) {
   var body = req.body
 
-  User.findOne({ email: body.email}, function(err, user){
+  User.findOne({ email: body.email }, function(err, user){
     if(err){
       return next(err)
     }else{

@@ -10,7 +10,9 @@ exports.create = function(req, res, next){
     function(err, activity){
       if(err){
         return next(err)
-      }else if(activity){
+      }else if(!activity){
+        res.send("can't found activity, you should new one")
+      }else{
         code = new Code({
           created_at: new Date(),
           codeValue: key.genCode(),
@@ -19,8 +21,6 @@ exports.create = function(req, res, next){
         code.activityId = activity._id
         code.save()
         res.json({ msg: 'success' })
-      }else{
-        res.send("can't found activity, you should new one")
       }
     })
 }
@@ -32,7 +32,12 @@ exports.active = function(req, res, next){
       if(err){
         res.send('err')
         return next(err)
-      }else if(activity){
+      }else if(!activity){
+        msg = '没有权限验证'
+        res.render('codes/active', {
+          msg: msg
+        })
+      }else{
         Code.findOne({codeValue: req.query.codeValue},
           function(err, code){
             if(err){
@@ -57,11 +62,6 @@ exports.active = function(req, res, next){
               })
             }
           })
-      }else{
-        msg = '没有权限验证'
-        res.render('codes/active', {
-          msg: msg
-        })
       }
     })
 }
